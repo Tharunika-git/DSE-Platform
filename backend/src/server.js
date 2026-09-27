@@ -26,8 +26,8 @@ app.use("/api/policies", policyRoutes);
 app.use("/api/dashboard", dashboardRoutes);
 
 
-const PORT = 5000;
+const PORT = process.env.PORT || 5000;
 
-app.listen(PORT, () => {
+app.listen(PORT, "0.0.0.0", () => {
     console.log(`DSE Security API running on port ${PORT}`);
 });
