@@ -20,12 +20,23 @@ import {
   Database,
   Clock3,
   Filter,
+  Settings,
+  Sun,
+  Moon,
+  Monitor,
 } from "lucide-react";
 
 const API = import.meta.env.VITE_API_URL || "http://localhost:5000/api";
 function App() {
   const [activeView, setActiveView] = useState("dashboard");
+  const [theme, setTheme] = useState(
+  localStorage.getItem("dse-theme") || "dark"
+);
 
+useEffect(() => {
+  document.documentElement.setAttribute("data-theme", theme);
+  localStorage.setItem("dse-theme", theme);
+}, [theme]);
   const [dashboard, setDashboard] = useState(null);
   const [policies, setPolicies] = useState([]);
   const [events, setEvents] = useState([]);
@@ -259,6 +270,20 @@ function App() {
           Audit Log
         </button>
 
+        <button
+          className={
+            activeView === "settings"
+              ? "active"
+              : ""
+          }
+          onClick={() =>
+            setActiveView("settings")
+          }
+        >
+          <Settings size={16} />
+          Settings
+        </button>
+
       </nav>
 
 
@@ -293,6 +318,104 @@ function App() {
           <AuditLog
             events={events}
           />
+
+        ) : activeView === "settings" ? (
+
+          <section className="settings-page">
+
+            <div className="page-heading">
+
+              <div>
+                <p className="eyebrow">
+                  SYSTEM PREFERENCES
+                </p>
+
+                <h2>
+                  Settings
+                </h2>
+
+                <p>
+                  Manage your DSE control plane appearance.
+                </p>
+              </div>
+
+              <Settings size={24} />
+
+            </div>
+
+            <div className="panel settings-panel">
+
+              <div className="panel-header">
+
+                <div>
+                  <span className="panel-label">
+                    APPEARANCE
+                  </span>
+
+                  <h3>
+                    Theme
+                  </h3>
+                </div>
+
+                <Settings size={20} />
+
+              </div>
+
+              <div className="theme-options">
+
+                <button
+                  className={
+                    theme === "dark"
+                      ? "theme-option selected"
+                      : "theme-option"
+                  }
+                  onClick={() => setTheme("dark")}
+                >
+                  <Moon size={20} />
+
+                  <div>
+                    <strong>Dark</strong>
+                    <span>Use the dark DSE interface.</span>
+                  </div>
+                </button>
+
+                <button
+                  className={
+                    theme === "light"
+                      ? "theme-option selected"
+                      : "theme-option"
+                  }
+                  onClick={() => setTheme("light")}
+                >
+                  <Sun size={20} />
+
+                  <div>
+                    <strong>Light</strong>
+                    <span>Use a light interface.</span>
+                  </div>
+                </button>
+
+                <button
+                  className={
+                    theme === "system"
+                      ? "theme-option selected"
+                      : "theme-option"
+                  }
+                  onClick={() => setTheme("system")}
+                >
+                  <Monitor size={20} />
+
+                  <div>
+                    <strong>System</strong>
+                    <span>Follow your system appearance.</span>
+                  </div>
+                </button>
+
+              </div>
+
+            </div>
+
+          </section>
 
         ) : (
 

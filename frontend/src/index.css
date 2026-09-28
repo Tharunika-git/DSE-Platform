@@ -1587,3 +1587,113 @@ button {
     display: none;
   }
 }
+/* =========================
+   DSE THEME SYSTEM
+   ========================= */
+
+:root {
+  --dse-bg: #0b1020;
+  --dse-panel: #111827;
+  --dse-panel-soft: #172033;
+  --dse-border: #263247;
+  --dse-text: #f8fafc;
+  --dse-muted: #94a3b8;
+  --dse-accent: #60a5fa;
+}
+
+:root[data-theme="light"] {
+  --dse-bg: #f8fafc;
+  --dse-panel: #ffffff;
+  --dse-panel-soft: #f1f5f9;
+  --dse-border: #dbe3ee;
+  --dse-text: #0f172a;
+  --dse-muted: #64748b;
+  --dse-accent: #2563eb;
+}
+
+@media (prefers-color-scheme: light) {
+  :root[data-theme="system"] {
+    --dse-bg: #f8fafc;
+    --dse-panel: #ffffff;
+    --dse-panel-soft: #f1f5f9;
+    --dse-border: #dbe3ee;
+    --dse-text: #0f172a;
+    --dse-muted: #64748b;
+    --dse-accent: #2563eb;
+  }
+}
+
+@media (prefers-color-scheme: dark) {
+  :root[data-theme="system"] {
+    --dse-bg: #0b1020;
+    --dse-panel: #111827;
+    --dse-panel-soft: #172033;
+    --dse-border: #263247;
+    --dse-text: #f8fafc;
+    --dse-muted: #94a3b8;
+    --dse-accent: #60a5fa;
+  }
+}
+
+body {
+  background: var(--dse-bg);
+  color: var(--dse-text);
+}
+
+.app {
+  background: var(--dse-bg);
+  color: var(--dse-text);
+}
+
+.panel,
+.settings-panel {
+  background: var(--dse-panel);
+  border-color: var(--dse-border);
+  color: var(--dse-text);
+}
+
+.settings-page {
+  color: var(--dse-text);
+}
+
+.settings-page p,
+.theme-option span {
+  color: var(--dse-muted);
+}
+
+.theme-options {
+  display: grid;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.theme-option {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--dse-border);
+  border-radius: 12px;
+  background: var(--dse-panel-soft);
+  color: var(--dse-text);
+  cursor: pointer;
+  text-align: left;
+  transition: 0.2s ease;
+}
+
+.theme-option:hover {
+  border-color: var(--dse-accent);
+  transform: translateY(-1px);
+}
+
+.theme-option.selected {
+  border-color: var(--dse-accent);
+  box-shadow: 0 0 0 1px var(--dse-accent);
+}
+
+.theme-option strong {
+  display: block;
+  margin-bottom: 4px;
+  color: var(--dse-text);
+}
